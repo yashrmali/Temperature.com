@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Temperature Converter</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f5f5f5;
+      }
+      
+      h1 {
+        color: #333;
+        margin-top: 40px;
+      }
+      
+      form {
+        margin-top: 30px;
+      }
+      
+      label {
+        font-size: 18px;
+        color: #333;
+        margin-right: 10px;
+      }
+      
+      input[type=text] {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 250px;
+      }
+      
+      select {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 120px;
+        margin-right: 10px;
+      }
+      
+      input[type=submit] {
+        background-color: #ea7be8;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+      }
+      
+      input[type=submit]:hover {
+        background-color: #af41a2;
+      }
+      
+      #result {
+        margin-top: 30px;
+        font-size: 24px;
+        color: #333;
+      }
+      
+      .error {
+        color: red;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Temperature Converter</h1>
+    <form>
+      <label for="temperature">Temperature:</label>
+      <input type="text" id="temperature" name="temperature" required>
+      
+      <label for="fromUnit">From:</label>
+      <select id="fromUnit" name="fromUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+      
+      <label for="toUnit">To:</label>
+      <select id="toUnit" name="toUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+      </select>
+      
+      <br>
+      
+      <input type="submit" value="Convert">
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+      function convertTemperature() {
+        var temperature = document.getElementById("temperature").value;
+        var fromUnit = document.getElementById("fromUnit").value;
+        var toUnit = document.getElementById("toUnit").value;
+        var result = document.getElementById("result");
+        var convertedTemperature;
+        
+        if (isNaN(temperature)) {
+          result.innerHTML = "";
+          var error = document.createElement("p");
+          error.className = "error";
+          error.innerHTML = "Please enter a valid number.";
+          result.appendChild(error);
+        } else {
+          temperature = parseFloat(temperature);
+          
+          if (fromUnit === "celsius") {
+            if (toUnit === "fahrenheit") {
+              convertedTemperature = temperature * 1.8 + 32;
+} else if (toUnit === "kelvin") {
+convertedTemperature = temperature + 273.15;
+} else {
+convertedTemperature = temperature;
+}
+} else if (fromUnit === "fahrenheit") {
+if (toUnit === "celsius") {
+convertedTemperature = (temperature - 32) / 1.8;
+} else if (toUnit === "kelvin") {
+convertedTemperature = (temperature + 459.67) / 1.8;
+} else {
+convertedTemperature = temperature;
+}
+} else {
+if (toUnit === "celsius") {
+convertedTemperature = temperature - 273.15;
+} else if (toUnit === "fahrenheit") {
+convertedTemperature = temperature * 1.8 - 459.67;
+} else {
+convertedTemperature = temperature;
+}
+}
+
+
+      result.innerHTML = convertedTemperature.toFixed(2) + " " + toUnit.charAt(0).toUpperCase() + toUnit.slice(1);
+    }
+  }
+  
+  var convertButton = document.querySelector("input[type=submit]");
+  convertButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    convertTemperature();
+  });
+</script>
+  </body>
+</html>
+
+
